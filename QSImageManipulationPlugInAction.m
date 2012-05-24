@@ -12,6 +12,16 @@
 #import <Quartz/Quartz.h>
 
 #import "QSImageAdjustController.h"
+
+#import <QSCore/QSObject_FileHandling.h>
+#import <QSCore/QSObject_StringHandling.h>
+#import <QSCore/QSTextProxy.h>
+
+
+#define kQSImageAsFormatAction @"QSImageAsFormatAction"
+#define kQSImageScaleAction @"QSImageScaleAction"
+#define kQSImageCropAction @"QSImageCropAction"
+
 @implementation NSImage (CICreation)
 + (NSImage *)imageWithCIImage:(CIImage *)i fromRect:(CGRect)r
 {
@@ -20,8 +30,8 @@
     
     ir = [NSCIImageRep imageRepWithCIImage:i];
     image = [[[NSImage alloc] initWithSize:
-		NSMakeSize(r.size.width, r.size.height)]
-        autorelease];
+              NSMakeSize(r.size.width, r.size.height)]
+             autorelease];
     [image addRepresentation:ir];
     return image;
 }
@@ -55,7 +65,7 @@
     return [rep autorelease];
 }
 
-+ (NSImage *)imageRepWithCIImage:(CIImage *)i
++ (NSBitmapImageRep *)imageRepWithCIImage:(CIImage *)i
 {
 	return [self imageRepWithCIImage:i fromRect:[i extent]];
 }
@@ -72,31 +82,44 @@
 	[fm createDirectoriesForPath:destinationPath];
 	return destinationPath;
 }
-//APPKIT_EXTERN NSString* NSImageCompressionMethod;	// TIFF input/output (NSTIFFCompression in NSNumber)
-//APPKIT_EXTERN NSString* NSImageCompressionFactor;	// TIFF/JPEG input/output (float in NSNumber)
+
 - (NSDictionary *)formatDictionaryForString:(NSString *)string{
 	if (!string) return nil;
 	NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithCapacity:1];
 	
-	int format=NSTIFFFileType;
+	NSUInteger format = NSTIFFFileType;
 	NSRange formatRange;
-	if 		((formatRange=[string rangeOfString:@"tif" 	options:NSCaseInsensitiveSearch]).location!=NSNotFound) 	format = NSTIFFFileType;
-	else if ((formatRange=[string rangeOfString:@"png" 	options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSPNGFileType;
-	else if ((formatRange=[string rangeOfString:@"gif" 	options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSGIFFileType;
-	else if ((formatRange=[string rangeOfString:@"bmp" 	options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSBMPFileType;
-	else if ((formatRange=[string rangeOfString:@"jpg2" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSJPEG2000FileType;
-	else if ((formatRange=[string rangeOfString:@"jpeg2" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSJPEG2000FileType;
-	else if ((formatRange=[string rangeOfString:@"jpg" 	options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSJPEGFileType;
-	else if ((formatRange=[string rangeOfString:@"jpeg" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	format = NSJPEGFileType;
-	if (formatRange.location==NSNotFound)return nil;
+	if 	((formatRange=[string rangeOfString:@"tif" options:NSCaseInsensitiveSearch]).location!=NSNotFound) {
+        format = NSTIFFFileType;
+    } else if ((formatRange=[string rangeOfString:@"png" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	{
+        format = NSPNGFileType;
+    } else if ((formatRange=[string rangeOfString:@"gif" options:NSCaseInsensitiveSearch]).location!=NSNotFound) {
+        format = NSGIFFileType;
+    } else if ((formatRange=[string rangeOfString:@"bmp" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	{
+        format = NSBMPFileType;
+    } else if ((formatRange=[string rangeOfString:@"jpg2" options:NSCaseInsensitiveSearch]).location!=NSNotFound) {
+        format = NSJPEG2000FileType;
+    } else if ((formatRange=[string rangeOfString:@"jpeg2" options:NSCaseInsensitiveSearch]).location!=NSNotFound) {
+        format = NSJPEG2000FileType;
+    } else if ((formatRange=[string rangeOfString:@"jpg" options:NSCaseInsensitiveSearch]).location!=NSNotFound)	{
+        format = NSJPEGFileType;
+    } else if ((formatRange=[string rangeOfString:@"jpeg" options:NSCaseInsensitiveSearch]).location!=NSNotFound) {
+        format = NSJPEGFileType;
+    }
+    
+    
+	if (formatRange.location==NSNotFound) {
+        return nil;
+    }
+    
 	NSString *extension=[string substringWithRange:formatRange];
-	float quality=0;
+	CGFloat quality=0;
 	[dict setObject:[NSNumber numberWithInt:format] forKey:@"NSBitmapImageFileType"];
 	switch (format){
 		case NSJPEGFileType:
 		case NSJPEG2000FileType:
 		{
-			quality=[string floatValue];
+			quality=[string doubleValue];
 			if (quality>100.0f)quality/=100.0f;
 			
 			if ([string rangeOfString:@" hi" 	options:NSCaseInsensitiveSearch].location!=NSNotFound) quality=0.6f;
@@ -104,13 +127,13 @@
 			if ([string rangeOfString:@" lo" 	options:NSCaseInsensitiveSearch].location!=NSNotFound) quality=0.1f;
 			
 			//NSLog(@"quality %f",quality);
-			if (quality)
-				[dict setObject:[NSNumber numberWithFloat:quality] forKey: NSImageCompressionFactor];
+			if (quality) {
+				[dict setObject:[NSNumber numberWithDouble:quality] forKey: NSImageCompressionFactor];
+            }
 			
-			
-			if ([string rangeOfString:@"prog" 	options:NSCaseInsensitiveSearch].location!=NSNotFound)
+			if ([string rangeOfString:@"prog" 	options:NSCaseInsensitiveSearch].location!=NSNotFound) {
 				[dict setObject:[NSNumber numberWithBool:YES] forKey: NSImageProgressive];
-			
+            }
 			break;
 		}
 		case NSPNGFileType:
@@ -139,34 +162,34 @@
 		[dict setObject:extension forKey: @"fileExtension"];
 	
 	//NSLog(@"dict %@",dict);
-				return dict;
+    return dict;
 }
 
-float QSFirstStringFloat(NSString *string){
-	float f=0;
+CGFloat QSFirstStringFloat(NSString *string){
+	CGFloat f=0;
 	for(NSString * component in [string componentsSeparatedByString:@" "]){
 		//NSLog(@"comp %@",component);
-		f=[component floatValue];
+		f=[component doubleValue];
 		if (f!=0)break;
 	}
 	return f;
 }
 
 - (CGImageRef)image{
-
+    
 	IKImageView *view=[[IKImageView alloc]init];
 	[view setImageWithURL:[NSURL fileURLWithPath:[@"~/Desktop/Picture 1.png" stringByStandardizingPath]]];
-
-		NSLog(@"image %@",[view image]);
-		return [view image];
-
+    
+    NSLog(@"image %@",[view image]);
+    return [view image];
+    
 }
 
 - (void)setImage: (CGImageRef)image imageProperties: (NSDictionary*)metaData{
-NSLog(@"setimage %@ %@",image, metaData);
+    NSLog(@"setimage %@ %@",image, metaData);
 }
- 
- 
+
+
 - (QSObject *)cropImage:(QSObject *)dObject{
 	BOOL useTempFile=[[NSUserDefaults standardUserDefaults]boolForKey:@"QSImageManipulationCreateTempFile"];
 	
@@ -182,37 +205,37 @@ NSLog(@"setimage %@ %@",image, metaData);
 		}
 		
 		QSImageAdjustController *adjuster=[[QSImageAdjustController alloc]init];
-	[adjuster showWindow:nil];
+        [adjuster showWindow:nil];
 		
-//		IKImageEditPanel *panel=[IKImageEditPanel sharedImageEditPanel];
-//		[panel setDataSource:self];
-//[panel makeKeyAndOrderFront:nil];
-//[NSApp runModalForWindow:panel];
-//		destinationPath=[destinationPath stringByDeletingPathExtension];
-//		
-//		NSDictionary *formatDictionary=defaultFormat;
-//		
-//		NSString *extension=[formatDictionary objectForKey:@"fileExtension"];
-//		if (extension)
-//			destinationPath=[destinationPath stringByAppendingPathExtension:extension];
-
+        //		IKImageEditPanel *panel=[IKImageEditPanel sharedImageEditPanel];
+        //		[panel setDataSource:self];
+        //[panel makeKeyAndOrderFront:nil];
+        //[NSApp runModalForWindow:panel];
+        //		destinationPath=[destinationPath stringByDeletingPathExtension];
+        //		
+        //		NSDictionary *formatDictionary=defaultFormat;
+        //		
+        //		NSString *extension=[formatDictionary objectForKey:@"fileExtension"];
+        //		if (extension)
+        //			destinationPath=[destinationPath stringByAppendingPathExtension:extension];
+        
 		destinationPath=[destinationPath firstUnusedFilePath];
-				NSLog(@"path %@ %@",path, destinationPath);
+        NSLog(@"path %@ %@",path, destinationPath);
 		
-//		NSBitmapImageRep *rep=[NSBitmapImageRep imageRepWithContentsOfFile:path];
-//		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"]intValue]
-//						   properties:formatDictionary] writeToFile:destinationPath atomically:NO];
-//		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
-//		[outputFiles addObject:destinationPath];
+        //		NSBitmapImageRep *rep=[NSBitmapImageRep imageRepWithContentsOfFile:path];
+        //		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"]intValue]
+        //						   properties:formatDictionary] writeToFile:destinationPath atomically:NO];
+        //		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
+        //		[outputFiles addObject:destinationPath];
 	}
 	return [QSObject fileObjectWithArray:outputFiles];
 	
-
+    
 }
 
 
 - (QSObject *)scaleImage:(QSObject *)dObject toSize:(QSObject *)iObject{
-	NSString *size=[iObject stringValue];
+	NSString *size= [iObject stringValue];
 	
 	NSString *formatString=nil;
 	
@@ -220,6 +243,9 @@ NSLog(@"setimage %@ %@",image, metaData);
 	if ([components count]==2)
 		formatString=[components objectAtIndex:1];
 	size=[components objectAtIndex:0];
+    
+    // if the user choses to enter 500px then let them, but change it to just 500
+    size = [size stringByReplacingOccurrencesOfString:@"px" withString:@""];
 	components=[size componentsSeparatedByString:@"x"]; 
 	
 	NSDictionary *defaultFormat=[self formatDictionaryForString:formatString];
@@ -231,10 +257,9 @@ NSLog(@"setimage %@ %@",image, metaData);
 	BOOL sharpen=[size rangeOfString:@"shar"].location!=NSNotFound;
 	
 	NSString *widthString=[components objectAtIndex:0];
-	NSString *heightString=nil;
 	
-	float w=QSFirstStringFloat(widthString);
-	float h=w;
+	CGFloat w=QSFirstStringFloat(widthString);
+	CGFloat h=w;
 	if ([components count]>1)
 		h=QSFirstStringFloat([components objectAtIndex:1]);
 	else
@@ -245,7 +270,7 @@ NSLog(@"setimage %@ %@",image, metaData);
 		isMaxSize=YES;
 		if (!w)w=MAXFLOAT;
 		if (!h)h=MAXFLOAT;
-		}
+    }
 	
 	if (percent){
 		w/=100.0f;
@@ -258,7 +283,7 @@ NSLog(@"setimage %@ %@",image, metaData);
 	BOOL useTempFile=[[NSUserDefaults standardUserDefaults]boolForKey:@"QSImageManipulationCreateTempFile"];
 	
 	NSArray *sourcePaths=[dObject validPaths];
-	NSArray *outputFiles=[NSMutableArray arrayWithCapacity:[sourcePaths count]];
+	NSMutableArray *outputFiles=[NSMutableArray arrayWithCapacity:[sourcePaths count]];
 	for(NSString * path in sourcePaths){
 		NSAutoreleasePool *pool=[[NSAutoreleasePool alloc]init];
 #warning should honor gif's NSImageRGBColorTable value
@@ -275,14 +300,14 @@ NSLog(@"setimage %@ %@",image, metaData);
 		CIImage *image=[CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:path]];
 		CGRect extent=[image extent];
 		
-		float oldWidth=extent.size.width;
-		float oldHeight=extent.size.height;
+		CGFloat oldWidth=extent.size.width;
+		CGFloat oldHeight=extent.size.height;
 		
-		float newWidth=oldWidth;
-		float newHeight=oldHeight;
+		CGFloat newWidth=oldWidth;
+		CGFloat newHeight=oldHeight;
 		
-		float scale=1.0f;
-		float ratio=1.0f;
+		CGFloat scale=1.0f;
+		CGFloat ratio=1.0f;
 		
 		if (percent){
 			scale=h;
@@ -303,22 +328,22 @@ NSLog(@"setimage %@ %@",image, metaData);
 		}
 		newWidth=roundf(newWidth);
 		newHeight=roundf(newHeight);
-//		CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"]; 
-//		[scaleFilter setDefaults]; 
-//		[scaleFilter setValue: image forKey: @"inputImage"];  
-//		[scaleFilter setValue: [NSNumber numberWithFloat: ratio]  forKey: @"inputAspectRatio"];
-//		[scaleFilter setValue: [NSNumber numberWithFloat: scale]  forKey: @"inputScale"];
-//		
-//		CIImage *result = [scaleFilter valueForKey: @"outputImage"]; 
-//		
-	//	float yscale = h / originalSize.height;
+        //		CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"]; 
+        //		[scaleFilter setDefaults]; 
+        //		[scaleFilter setValue: image forKey: @"inputImage"];  
+        //		[scaleFilter setValue: [NSNumber numberWithFloat: ratio]  forKey: @"inputAspectRatio"];
+        //		[scaleFilter setValue: [NSNumber numberWithFloat: scale]  forKey: @"inputScale"];
+        //		
+        //		CIImage *result = [scaleFilter valueForKey: @"outputImage"]; 
+        //		
+        //	CGFloat yscale = h / originalSize.height;
 		//NSLog(@"bigger? %d",newHeight>200.0f);
 		CIImage *im=image;
 		
 		CIFilter *f = [CIFilter filterWithName:@"CILanczosScaleTransform"];
 		[f setDefaults]; 
-		[f setValue:[NSNumber numberWithFloat:scale] forKey:@"inputScale"];
-		[f setValue:[NSNumber numberWithFloat:ratio] forKey:@"inputAspectRatio"];
+		[f setValue:[NSNumber numberWithDouble:scale] forKey:@"inputScale"];
+		[f setValue:[NSNumber numberWithDouble:ratio] forKey:@"inputAspectRatio"];
 		[f setValue:im forKey:@"inputImage"];
 		im = [f valueForKey:@"outputImage"];
 		
@@ -337,7 +362,7 @@ NSLog(@"setimage %@ %@",image, metaData);
 			f = [CIFilter filterWithName:@"CISharpenLuminance"];
 			[f setDefaults]; 			
 			[f setValue:im forKey:@"inputImage"];
-//			[f setValue:[NSNumber numberWithFloat:0.04] forKey:@"inputSharpness"];
+            //			[f setValue:[NSNumber numberWithFloat:0.04] forKey:@"inputSharpness"];
 			im = [f valueForKey:@"outputImage"];
 		}
 		
@@ -355,7 +380,7 @@ NSLog(@"setimage %@ %@",image, metaData);
 			destinationPath=[destinationPath stringByAppendingPathExtension:extension];
 		destinationPath=[destinationPath firstUnusedFilePath];
 		
-		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"]intValue]
+		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"] unsignedIntegerValue]
 						   properties:formatDictionary] writeToFile:destinationPath atomically:NO];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
 		[outputFiles addObject:destinationPath];
@@ -363,36 +388,43 @@ NSLog(@"setimage %@ %@",image, metaData);
 	}
 	return [QSObject fileObjectWithArray:outputFiles];
 	
-	}
+}
 
 - (QSObject *)saveImage:(QSObject *)dObject asFormat:(QSObject *)iObject{
 	NSString *formatString=[iObject stringValue];
+    
+    // if .png or .jpg is entered, remove the .
+    if ([formatString length] > 1 && [[formatString substringToIndex:1] isEqualToString:@"."]) {
+        formatString = [formatString substringFromIndex:1];
+    }
+    
 	NSDictionary *defaultFormat=[self formatDictionaryForString:formatString];
 	
 	BOOL useTempFile=[[NSUserDefaults standardUserDefaults]boolForKey:@"QSImageManipulationCreateTempFile"];
 	
-	NSArray *sourcePaths=[dObject validPaths];
-	NSArray *outputFiles=[NSMutableArray arrayWithCapacity:[sourcePaths count]];
+	NSArray *sourcePaths= [dObject validPaths];
+	NSMutableArray *outputFiles= [NSMutableArray arrayWithCapacity:[sourcePaths count]];
 	for(NSString * path in sourcePaths){
-		NSString *destinationPath=nil;
-		if (useTempFile){
-			destinationPath=[self temporaryPath];
-			destinationPath=[destinationPath stringByAppendingPathComponent:[path lastPathComponent]];
-		}else{
-			destinationPath=path;//[path stringByDeletingLastPathComponent];
+		NSString *destinationPath = nil;
+		if (useTempFile) {
+			destinationPath = [self temporaryPath];
+			destinationPath = [destinationPath stringByAppendingPathComponent:[path lastPathComponent]];
+		} else {
+			destinationPath = path;//[path stringByDeletingLastPathComponent];
 		}
-		destinationPath=[destinationPath stringByDeletingPathExtension];
+		destinationPath = [destinationPath stringByDeletingPathExtension];
 		
-		NSDictionary *formatDictionary=defaultFormat;
+		NSDictionary *formatDictionary = defaultFormat;
 		
-		NSString *extension=[formatDictionary objectForKey:@"fileExtension"];
-		if (extension)
+		NSString *extension = [formatDictionary objectForKey:@"fileExtension"];
+		if (extension) {
 			destinationPath=[destinationPath stringByAppendingPathExtension:extension];
+        }
 		destinationPath=[destinationPath firstUnusedFilePath];
 		
 		
 		NSBitmapImageRep *rep=[NSBitmapImageRep imageRepWithContentsOfFile:path];
-		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"]intValue]
+		[[rep representationUsingType:[[formatDictionary objectForKey:@"NSBitmapImageFileType"] unsignedIntegerValue]
 						   properties:formatDictionary] writeToFile:destinationPath atomically:NO];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
 		[outputFiles addObject:destinationPath];
@@ -402,15 +434,22 @@ NSLog(@"setimage %@ %@",image, metaData);
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject{
-	NSString *paths=[dObject validPaths];
-	if ([[NSImage imageUnfilteredFileTypes]containsObject:[[[paths lastObject]pathExtension]lowercaseString]]){
-		return [NSArray arrayWithObjects:@"QSImageAsFormatAction",@"QSImageScaleAction",@"QSImageCropAction",nil];
+	NSArray *paths=[dObject validPaths];
+	if ([[NSImage imageUnfilteredFileTypes] containsObject:[[[paths lastObject] pathExtension] lowercaseString]]){
+		return [NSArray arrayWithObjects:kQSImageAsFormatAction,kQSImageScaleAction,kQSImageCropAction,nil];
 	}
 	//	NSLog(@"other %@",[[[paths lastObject]pathExtension]lowercaseString]);
 	return nil;
 }
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject{
-	QSObject *textObject=[QSObject textProxyObjectWithDefaultValue:@""];
+
+    QSObject *textObject;
+    if ([action isEqualToString:kQSImageAsFormatAction]) {
+        NSString *file = [[dObject validPaths] lastObject];
+        textObject=[QSObject textProxyObjectWithDefaultValue:[file pathExtension]];
+    } else {
+        textObject=[QSObject textProxyObjectWithDefaultValue:NSLocalizedStringFromTableInBundle(@"Examples: 50%, 200px x 500px", nil, [NSBundle bundleForClass:[self class]], nil)];
+    }
 	return [NSArray arrayWithObject:textObject]; //[QSLibarrayForType:NSFilenamesPboardType];
 	
 }
