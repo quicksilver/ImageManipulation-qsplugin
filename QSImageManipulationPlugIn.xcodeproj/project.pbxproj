@@ -14,9 +14,7 @@
 		7FBE3EC0093648DC00996A75 /* QSImageManipulationPlugInAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBE3EBF093648DC00996A75 /* QSImageManipulationPlugInAction.m */; };
 		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		CD03F06D1580E6D000F9F440 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F0691580E6D000F9F440 /* QSCore.framework */; };
-		CD03F06E1580E6D000F9F440 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F06A1580E6D000F9F440 /* QSEffects.framework */; };
 		CD03F06F1580E6D000F9F440 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F06B1580E6D000F9F440 /* QSFoundation.framework */; };
-		CD03F0701580E6D000F9F440 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F06C1580E6D000F9F440 /* QSInterface.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +37,7 @@
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* Image Manipulation Actions.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Image Manipulation Actions.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD03F0691580E6D000F9F440 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD03F06A1580E6D000F9F440 /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD03F06B1580E6D000F9F440 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD03F06C1580E6D000F9F440 /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E1EAB045068128A200774DFF /* QSImageManipulationPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSImageManipulationPlugIn.m; sourceTree = "<group>"; };
 		E1EAB047068128A800774DFF /* QSImageManipulationPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSImageManipulationPlugIn.h; sourceTree = "<group>"; };
@@ -56,9 +52,7 @@
 				7F921B6B0937FC380060780D /* QuartzCore.framework in Frameworks */,
 				7F4DB6970A88FFF700A3CC50 /* Quartz.framework in Frameworks */,
 				CD03F06D1580E6D000F9F440 /* QSCore.framework in Frameworks */,
-				CD03F06E1580E6D000F9F440 /* QSEffects.framework in Frameworks */,
 				CD03F06F1580E6D000F9F440 /* QSFoundation.framework in Frameworks */,
-				CD03F0701580E6D000F9F440 /* QSInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,9 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				CD03F0691580E6D000F9F440 /* QSCore.framework */,
-				CD03F06A1580E6D000F9F440 /* QSEffects.framework */,
 				CD03F06B1580E6D000F9F440 /* QSFoundation.framework */,
-				CD03F06C1580E6D000F9F440 /* QSInterface.framework */,
 				7F4DB6960A88FFF700A3CC50 /* Quartz.framework */,
 				7F921B6A0937FC380060780D /* QuartzCore.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
