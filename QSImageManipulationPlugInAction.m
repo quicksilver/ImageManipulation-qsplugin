@@ -13,11 +13,6 @@
 
 #import "QSImageAdjustController.h"
 
-#import <QSCore/QSObject_FileHandling.h>
-#import <QSCore/QSObject_StringHandling.h>
-#import <QSCore/QSTextProxy.h>
-
-
 #define kQSImageAsFormatAction @"QSImageAsFormatAction"
 #define kQSImageScaleAction @"QSImageScaleAction"
 #define kQSImageCropAction @"QSImageCropAction"
