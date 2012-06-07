@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F35FF4007F9ACD90056051D /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35FF3C07F9ACD90056051D /* QSCore.framework */; };
-		7F35FF4207F9ACD90056051D /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35FF3E07F9ACD90056051D /* QSFoundation.framework */; };
 		7F4DB6970A88FFF700A3CC50 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4DB6960A88FFF700A3CC50 /* Quartz.framework */; };
 		7F4DB6F50A89066500A3CC50 /* QSImageAdjustController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4DB6F40A89066500A3CC50 /* QSImageAdjustController.m */; };
 		7F4DB7230A890A2000A3CC50 /* QSImageAdjustWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F92151509374CDB0060780D /* QSImageAdjustWindow.nib */; };
 		7F921B6B0937FC380060780D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F921B6A0937FC380060780D /* QuartzCore.framework */; };
 		7FBE3EC0093648DC00996A75 /* QSImageManipulationPlugInAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBE3EBF093648DC00996A75 /* QSImageManipulationPlugInAction.m */; };
 		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
+		CD03F06D1580E6D000F9F440 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F0691580E6D000F9F440 /* QSCore.framework */; };
+		CD03F06F1580E6D000F9F440 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD03F06B1580E6D000F9F440 /* QSFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,10 +27,6 @@
 		14DE8BE710D0ADEB00851A6F /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		14DE8BE810D0ADEB00851A6F /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		32DBCF980370C29C00C91783 /* QSImageManipulationPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSImageManipulationPlugIn_Prefix.pch; sourceTree = "<group>"; };
-		7F35FF3C07F9ACD90056051D /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = QSFrameworks; };
-		7F35FF3D07F9ACD90056051D /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
-		7F35FF3E07F9ACD90056051D /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = QSFrameworks; };
-		7F35FF3F07F9ACD90056051D /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
 		7F4DB6960A88FFF700A3CC50 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		7F4DB6F30A89066500A3CC50 /* QSImageAdjustController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSImageAdjustController.h; sourceTree = "<group>"; };
 		7F4DB6F40A89066500A3CC50 /* QSImageAdjustController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSImageAdjustController.m; sourceTree = "<group>"; };
@@ -38,10 +34,10 @@
 		7F921B6A0937FC380060780D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7FBE3EBE093648DC00996A75 /* QSImageManipulationPlugInAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSImageManipulationPlugInAction.h; sourceTree = "<group>"; };
 		7FBE3EBF093648DC00996A75 /* QSImageManipulationPlugInAction.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSImageManipulationPlugInAction.m; sourceTree = "<group>"; };
-		7FFA8E9C0816CCCA00A858CD /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
-		7FFA8E9D0816CCCA00A858CD /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* Image Manipulation Actions.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Image Manipulation Actions.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD03F0691580E6D000F9F440 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD03F06B1580E6D000F9F440 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E1EAB045068128A200774DFF /* QSImageManipulationPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSImageManipulationPlugIn.m; sourceTree = "<group>"; };
 		E1EAB047068128A800774DFF /* QSImageManipulationPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSImageManipulationPlugIn.h; sourceTree = "<group>"; };
@@ -53,10 +49,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */,
-				7F35FF4007F9ACD90056051D /* QSCore.framework in Frameworks */,
-				7F35FF4207F9ACD90056051D /* QSFoundation.framework in Frameworks */,
 				7F921B6B0937FC380060780D /* QuartzCore.framework in Frameworks */,
 				7F4DB6970A88FFF700A3CC50 /* Quartz.framework in Frameworks */,
+				CD03F06D1580E6D000F9F440 /* QSCore.framework in Frameworks */,
+				CD03F06F1580E6D000F9F440 /* QSFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,14 +107,11 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD03F0691580E6D000F9F440 /* QSCore.framework */,
+				CD03F06B1580E6D000F9F440 /* QSFoundation.framework */,
 				7F4DB6960A88FFF700A3CC50 /* Quartz.framework */,
 				7F921B6A0937FC380060780D /* QuartzCore.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
-				7F35FF3C07F9ACD90056051D /* QSCore.framework */,
-				7F35FF3E07F9ACD90056051D /* QSFoundation.framework */,
-				7FFA8E9C0816CCCA00A858CD /* QSEffects.framework */,
-				7FFA8E9D0816CCCA00A858CD /* QSInterface.framework */,
-				7FC20C8107FB741700FDD3CA /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,15 +135,6 @@
 				32DBCF980370C29C00C91783 /* QSImageManipulationPlugIn_Prefix.pch */,
 			);
 			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		7FC20C8107FB741700FDD3CA /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7F35FF3D07F9ACD90056051D /* QSEffects.framework */,
-				7F35FF3F07F9ACD90056051D /* QSInterface.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +166,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 7F6B3EEF085CE8DF000735A8 /* Build configuration list for PBXProject "QSImageManipulationPlugIn" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0259C574FE90428111CA0C5A /* QSImageManipulationPlugIn */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -236,6 +224,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 14DE8BE410D0ADEB00851A6F /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/tmp/QS/build/Debug,
+				);
 				OTHER_LDFLAGS = "-bundle";
 				PRODUCT_NAME = "Image Manipulation Actions";
 				ZERO_LINK = YES;
@@ -246,6 +238,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 14DE8BE610D0ADEB00851A6F /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/tmp/QS/build/Debug,
+				);
 				OTHER_LDFLAGS = "-bundle";
 				PRODUCT_NAME = "Image Manipulation Actions";
 				ZERO_LINK = NO;
