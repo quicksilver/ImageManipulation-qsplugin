@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Image Manipulation Actions</string>
 	<key>CFBundleExecutable</key>
 	<string>Image Manipulation Actions</string>
 	<key>CFBundleIdentifier</key>
@@ -14,12 +16,10 @@
 	<string>Image Manipulation Actions</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleVersion</key>
-	<string>5E</string>
-	<key>CFBundleDisplayName</key>
-	<string>Image Manipulation Actions</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>5F</string>
 	<key>QSActions</key>
 	<dict>
 		<key>QSImageAsFormatAction</key>
@@ -51,14 +51,14 @@
 			</array>
 			<key>displaysResult</key>
 			<true/>
-			<key>name</key>
-			<string>Crop Image</string>
-			<key>hidden</key>
-			<string>YES</string>
-			<key>validatesObjects</key>
-			<true/>
 			<key>enabled</key>
 			<string>NO</string>
+			<key>hidden</key>
+			<string>YES</string>
+			<key>name</key>
+			<string>Crop Image</string>
+			<key>validatesObjects</key>
+			<true/>
 		</dict>
 		<key>QSImageScaleAction</key>
 		<dict>
@@ -81,7 +81,7 @@
 	<key>QSPlugIn</key>
 	<dict>
 		<key>author</key>
-		<string>Blacktree</string>
+		<string>Patrick Robertson, Blacktree</string>
 		<key>categories</key>
 		<array>
 			<string>Images</string>
@@ -90,12 +90,12 @@
 		<string>Actions to scale and change format of images</string>
 		<key>extendedDescription</key>
 		<string>&lt;h3&gt;Overview&lt;/h3&gt;
-&lt;p&gt;Actions to scale, change the format of images. Both actions take an argument in Quicksilver&apos;s 3rd pane. Examples can be seen below.&lt;/p&gt;
+&lt;p&gt;Actions to scale, change the format of images. Both actions take an argument in Quicksilver's 3rd pane. Examples can be seen below.&lt;/p&gt;
 
 &lt;h3&gt;Actions&lt;/h3&gt;
 
 &lt;h4&gt;Scale Image...&lt;/h4&gt;
-&lt;p&gt;This method allows you to scale an image selected in Quicksilver&apos;s 1st pane. Various scaling and formation options are available, and are listed below.&lt;/p&gt;
+&lt;p&gt;This method allows you to scale an image selected in Quicksilver's 1st pane. Various scaling and formation options are available, and are listed below.&lt;/p&gt;
 
 &lt;p&gt;The basic format for the string is (terms in square brackets are optional):&lt;br /&gt;
 &lt;code&gt;SCALING_INFORMATION [as FORMATTING_INFORMATION]&lt;/code&gt;&lt;/p&gt;
