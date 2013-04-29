@@ -9,8 +9,6 @@
 #import "QSImageManipulationPlugInAction.h"
 #import <QuartzCore/QuartzCore.h>
 
-#import <Quartz/Quartz.h>
-
 #import "QSImageAdjustController.h"
 
 #define kQSImageAsFormatAction @"QSImageAsFormatAction"
