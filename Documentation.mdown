@@ -45,3 +45,7 @@ fit 640x480 as jpg high progressive
 
 50% as interlaced png
   : Creates a PNG with dimensions half of the original.
+
+## Trigger Events ##
+
+Event Triggers can be run when images are resized or reformatted by this plug-in. For both actions, the "Event Trigger Object" will refer to the new image file(s).

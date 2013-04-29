@@ -35,7 +35,7 @@
 			<key>displaysResult</key>
 			<true/>
 			<key>name</key>
-			<string>Save Image in Format...</string>
+			<string>Save Image in Format…</string>
 			<key>validatesObjects</key>
 			<true/>
 		</dict>
@@ -73,7 +73,7 @@
 			<key>displaysResult</key>
 			<true/>
 			<key>name</key>
-			<string>Scale Image...</string>
+			<string>Scale Image…</string>
 			<key>validatesObjects</key>
 			<true/>
 		</dict>
@@ -123,11 +123,11 @@
 &lt;dd&gt;Creates a JPEG image that will fit within a 640x480 rectangle and is of high quality with progressive enabled.&lt;/dd&gt;
 &lt;dt&gt;50% as interlaced png&lt;/dt&gt;
 &lt;dd&gt;Creates a PNG with dimensions half of the original.&lt;/dd&gt;
-&lt;/dl&gt;</string>
+&lt;/dl&gt;
+&lt;h2&gt;Trigger Events&lt;/h2&gt;
+&lt;p&gt;Event Triggers can be run when images are resized or reformatted by this plug-in. For both actions, the "Event Trigger Object" will refer to the new image file(s).&lt;/p&gt;</string>
 		<key>icon</key>
 		<string>com.apple.Preview</string>
-		<key>qsversion</key>
-		<string>3400</string>
 	</dict>
 	<key>QSRegistration</key>
 	<dict>
@@ -135,6 +135,31 @@
 		<dict>
 			<key>QSImageManipulationPlugInAction</key>
 			<string>QSImageManipulationPlugInAction</string>
+		</dict>
+		<key>QSTriggerEvents</key>
+		<dict>
+			<key>QSImageReformatted</key>
+			<dict>
+				<key>icon</key>
+				<string>com.apple.Preview</string>
+				<key>name</key>
+				<string>Image Format Changed</string>
+				<key>provider</key>
+				<string>QSImageManipulationPlugInAction</string>
+				<key>type</key>
+				<string>Image Manipulation</string>
+			</dict>
+			<key>QSImageResized</key>
+			<dict>
+				<key>icon</key>
+				<string>com.apple.Preview</string>
+				<key>name</key>
+				<string>Image Scaled</string>
+				<key>provider</key>
+				<string>QSImageManipulationPlugInAction</string>
+				<key>type</key>
+				<string>Image Manipulation</string>
+			</dict>
 		</dict>
 	</dict>
 </dict>

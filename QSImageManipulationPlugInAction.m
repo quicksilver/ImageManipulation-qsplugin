@@ -379,6 +379,10 @@ CGFloat QSFirstStringFloat(NSString *string){
 		[outputFiles addObject:destinationPath];
 		[pool release];
 	}
+    if ([outputFiles count]) {
+        NSDictionary *info = @{@"object": outputFiles};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSImageResized" userInfo:info];
+    }
 	return [QSObject fileObjectWithArray:outputFiles];
 	
 }
@@ -422,6 +426,10 @@ CGFloat QSFirstStringFloat(NSString *string){
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
 		[outputFiles addObject:destinationPath];
 	}
+    if ([outputFiles count]) {
+        NSDictionary *info = @{@"object": outputFiles};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSImageReformatted" userInfo:info];
+    }
 	return [QSObject fileObjectWithArray:outputFiles];
 	
 }
