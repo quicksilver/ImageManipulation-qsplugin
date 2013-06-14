@@ -9,8 +9,6 @@
 #import "QSImageManipulationPlugInAction.h"
 #import <QuartzCore/QuartzCore.h>
 
-#import <Quartz/Quartz.h>
-
 #import "QSImageAdjustController.h"
 
 #define kQSImageAsFormatAction @"QSImageAsFormatAction"
@@ -381,7 +379,13 @@ CGFloat QSFirstStringFloat(NSString *string){
 		[outputFiles addObject:destinationPath];
 		[pool release];
 	}
-	return [QSObject fileObjectWithArray:outputFiles];
+    QSObject *result = nil;
+    if ([outputFiles count]) {
+        result = [QSObject fileObjectWithArray:outputFiles];
+        NSDictionary *info = @{@"object": result};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSImageResized" userInfo:info];
+    }
+	return result;
 	
 }
 
@@ -424,8 +428,13 @@ CGFloat QSFirstStringFloat(NSString *string){
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[destinationPath stringByDeletingLastPathComponent]];
 		[outputFiles addObject:destinationPath];
 	}
-	return [QSObject fileObjectWithArray:outputFiles];
-	
+    QSObject *result = nil;
+    if ([outputFiles count]) {
+        result = [QSObject fileObjectWithArray:outputFiles];
+        NSDictionary *info = @{@"object": result};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSImageReformatted" userInfo:info];
+    }
+	return result;
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject{
