@@ -140,10 +140,12 @@
 		<dict>
 			<key>QSImageReformatted</key>
 			<dict>
+				<key>allowMatching</key>
+				<true/>
 				<key>icon</key>
 				<string>com.apple.Preview</string>
 				<key>name</key>
-				<string>Image Format Changed</string>
+				<string>Image Format Changed ☿</string>
 				<key>provider</key>
 				<string>QSImageManipulationPlugInAction</string>
 				<key>type</key>
@@ -151,16 +153,23 @@
 			</dict>
 			<key>QSImageResized</key>
 			<dict>
+				<key>allowMatching</key>
+				<true/>
 				<key>icon</key>
 				<string>com.apple.Preview</string>
 				<key>name</key>
-				<string>Image Scaled</string>
+				<string>Image Scaled ☿</string>
 				<key>provider</key>
 				<string>QSImageManipulationPlugInAction</string>
 				<key>type</key>
 				<string>Image Manipulation</string>
 			</dict>
 		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
 	</dict>
 </dict>
 </plist>
